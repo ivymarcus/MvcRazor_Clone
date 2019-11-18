@@ -58,5 +58,10 @@ namespace MvcRazor_Clone.Controllers
             return View(students);
         }
 
+        public ActionResult ScoresRazorPure()
+        {
+            return View(students);
+        }
+
     }
 }

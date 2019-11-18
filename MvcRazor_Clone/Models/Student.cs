@@ -9,6 +9,7 @@ namespace MvcRazor_Clone.Models
     public class Student
     {
         [Display(Name="學號")]
+        [DisplayFormat(DataFormatString = "{0:0000}", ApplyFormatInEditMode = false)] // 在Id前加 00
         public int Id { get; set; }
 
         [Display(Name = "姓名")]
