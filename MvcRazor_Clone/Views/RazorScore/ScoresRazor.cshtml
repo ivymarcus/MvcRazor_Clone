@@ -1,0 +1,153 @@
+﻿@model IEnumerable<MvcRazor_Clone.Models.Student>
+
+@{
+    ViewBag.Title = "ScoresRazor";
+}
+
+<h2>ScoresRazor</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Chinese)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.English)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Math)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Total)
+            </th>
+            @*<th></th>*@
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var m in Model)
+        {
+            var total = m.Chinese + m.English + m.Math;
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => m.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => m.Name)
+                </td>
+
+                @* 判斷 分數 給予不同顏色 *@
+                @* 國文 *@
+                @if (m.Chinese < 60)
+                {
+                    <td class="poor"> @Html.DisplayFor(x => m.Chinese)</td>
+                }
+                else if (m.Chinese >= 95)
+                {
+                    <td class="excellent">@Html.DisplayFor(x => m.Chinese)</td>
+                }
+                else
+                {
+                    <td>@Html.DisplayFor(x => m.Chinese)</td>
+                }
+
+                @* 英文 *@
+                @if (m.English < 60)
+                {
+                    <td calss="poor"> @Html.DisplayFor(x => m.English)</td>
+                }
+                else if (m.English >= 95)
+                {
+                    <td calss="excellent"> @Html.DisplayFor(x => m.English)</td>
+                }
+                else
+                {
+                    <td> @Html.DisplayFor(x => m.English)</td>
+                }
+
+                @* 數學 *@
+                @if (m.Math < 60)
+                {
+                    <td class="poor"> @Html.DisplayFor(x => m.Math)</td>
+                }
+                else if (m.Math >= 95)
+                {
+                    <td class="excellent"> @Html.DisplayFor(x => m.Math)</td>
+                }
+                else
+                {
+                    <td> @Html.DisplayFor(x => m.Math)</td>
+                }
+
+                @* 總分 *@
+                @if (m.Id == ViewBag.topId)
+                {
+                    <!--總分最高者-->
+                    <td class="top1">@Html.DisplayFor(x => m.Total)</td>
+                }
+                else
+                {
+                    <td>@Html.DisplayFor(x => m.Total)</td>
+                }
+
+
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id = m.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = m.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = m.Id })
+                    </td>*@
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section topCSS{
+    <style type="text/css">
+        /*設定Table欄位標題顏色*/
+        th {
+            color: white;
+            background-color: black;
+            text-align: center;
+        }
+
+        /*設定Table資料列Hover時的光棒效果*/
+        .table > tbody > tr:hover {
+            background-color: antiquewhite !important;
+        }
+
+        /*成績不及格之CSS*/
+        .poor {
+            color: white !important;
+            background-color: red !important;
+        }
+
+        /*成績優秀之CSS*/
+        .excellent {
+            background-color: aqua !important;
+        }
+
+        /*總分第一名之CSS*/
+        .top1 {
+            background-color: yellow !important;
+            border: 2px dashed black !important;
+            font-weight: 900;
+            font-size: 1.2em;
+        }
+
+            .top1::after {
+                content: ' (總分排名第一)';
+            }
+    </style>
+}
+
